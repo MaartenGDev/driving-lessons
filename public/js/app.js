@@ -28982,7 +28982,9 @@ var _jsxFileName = '/Users/maarten/dev/php/sites/driving-lessons/resources/asset
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _templateObject = _taggedTemplateLiteral(['\n  text-decoration: none;\n  color: black;\n  display: block;\n'], ['\n  text-decoration: none;\n  color: black;\n  display: block;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n  color: red;\n  background-color: red;\n'], ['\n  color: red;\n  background-color: red;\n']);
+    _templateObject2 = _taggedTemplateLiteral(['\n  color: red;\n  background-color: green;\n'], ['\n  color: red;\n  background-color: green;\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  margin: 0;\n  padding: 0\n'], ['\n  margin: 0;\n  padding: 0\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  display: inline-block;\n'], ['\n  display: inline-block;\n']);
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -28999,8 +29001,12 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 
 var MenuLink = Object(__WEBPACK_IMPORTED_MODULE_2_styled_components__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */])(_templateObject);
-
+// language=SCSS prefix=dummy{ suffix=}
 var StyledHeader = __WEBPACK_IMPORTED_MODULE_2_styled_components__["a" /* default */].header(_templateObject2);
+
+var List = __WEBPACK_IMPORTED_MODULE_2_styled_components__["a" /* default */].ul(_templateObject3);
+
+var ListItem = __WEBPACK_IMPORTED_MODULE_2_styled_components__["a" /* default */].li(_templateObject4);
 
 var Header = function (_Component) {
   _inherits(Header, _Component);
@@ -29019,7 +29025,7 @@ var Header = function (_Component) {
         _defineProperty({
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 19
+            lineNumber: 28
           },
           __self: this
         }, '__self', this),
@@ -29028,25 +29034,25 @@ var Header = function (_Component) {
           _defineProperty({
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 20
+              lineNumber: 29
             },
             __self: this
           }, '__self', this),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'ul',
+            List,
             _defineProperty({
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 21
+                lineNumber: 30
               },
               __self: this
             }, '__self', this),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
+              ListItem,
               _defineProperty({
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 22
+                  lineNumber: 31
                 },
                 __self: this
               }, '__self', this),
@@ -29054,7 +29060,7 @@ var Header = function (_Component) {
                 MenuLink,
                 _defineProperty({ to: '/notes', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 22
+                    lineNumber: 31
                   },
                   __self: this
                 }, '__self', this),
@@ -29062,11 +29068,11 @@ var Header = function (_Component) {
               )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
+              ListItem,
               _defineProperty({
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 23
+                  lineNumber: 32
                 },
                 __self: this
               }, '__self', this),
@@ -29074,7 +29080,7 @@ var Header = function (_Component) {
                 MenuLink,
                 _defineProperty({ to: '/about', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 23
+                    lineNumber: 32
                   },
                   __self: this
                 }, '__self', this),
@@ -29082,11 +29088,11 @@ var Header = function (_Component) {
               )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
+              ListItem,
               _defineProperty({
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 24
+                  lineNumber: 33
                 },
                 __self: this
               }, '__self', this),
@@ -29094,7 +29100,7 @@ var Header = function (_Component) {
                 MenuLink,
                 _defineProperty({ to: '/todo', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 24
+                    lineNumber: 33
                   },
                   __self: this
                 }, '__self', this),
@@ -29102,11 +29108,11 @@ var Header = function (_Component) {
               )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
+              ListItem,
               _defineProperty({
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 25
+                  lineNumber: 34
                 },
                 __self: this
               }, '__self', this),
@@ -29114,7 +29120,7 @@ var Header = function (_Component) {
                 MenuLink,
                 _defineProperty({ to: '/docs', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 25
+                    lineNumber: 34
                   },
                   __self: this
                 }, '__self', this),
