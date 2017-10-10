@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
-import notes from './notes';
+import { combineReducers } from 'redux'
+import questions from './questions'
 
 const rootReducer = combineReducers({
-    notes
-});
+  questions
+})
 
-export default rootReducer;
+export default rootReducer

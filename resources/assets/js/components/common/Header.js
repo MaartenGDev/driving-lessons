@@ -7,7 +7,6 @@ const MenuLink = styled(Link)`
   color: black;
   display: block;
 `
-// language=SCSS prefix=dummy{ suffix=}
 const StyledHeader = styled.header`
   color: red;
   background-color: green;
@@ -28,7 +27,7 @@ export default class Header extends Component {
       <StyledHeader>
         <nav>
           <List>
-            <ListItem><MenuLink to={'/notes'}>Notes</MenuLink></ListItem>
+            <ListItem><MenuLink to={'/questions'}>Questions</MenuLink></ListItem>
             <ListItem><MenuLink to={'/about'}>About</MenuLink></ListItem>
             <ListItem><MenuLink to={'/todo'}>Todo</MenuLink></ListItem>
             <ListItem><MenuLink to={'/docs'}>Docs</MenuLink></ListItem>

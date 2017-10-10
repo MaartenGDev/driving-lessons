@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
-import {addNote} from './../../actions/noteActions';
+import {updateQuestion} from './../../actions/questionActions';
 import Container from '../../components/common/Container';
 
-let AddNote = ({dispatch}) => {
+let AddQuestion = ({dispatch}) => {
     let titleField;
     let bodyField;
 
     return (
         <Container>
-            <Link to="/notes">Back to notes</Link>
+            <Link to="/questions">Back to Questions</Link>
             <form onSubmit={e => {
                 e.preventDefault();
 
@@ -21,7 +21,7 @@ let AddNote = ({dispatch}) => {
                     return;
                 }
 
-                dispatch(addNote(title, body));
+                dispatch(updateQuestion(title, body));
                 titleField.value = '';
                 bodyField.value = '';
             }}>
@@ -30,13 +30,13 @@ let AddNote = ({dispatch}) => {
                 <input ref={(input) => bodyField = input} />
 
                 <button type="submit">
-                    Add Todo
+                    Add Question
                 </button>
             </form>
         </Container>
     );
 };
 
-AddNote = connect()(AddNote);
+AddQuestion = connect()(AddQuestion);
 
-export default AddNote;
+export default AddQuestion;

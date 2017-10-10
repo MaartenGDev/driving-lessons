@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as noteActions from '../../actions/noteActions';
+import * as questionActions from '../../actions/questionActions';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import Container from '../../components/common/Container';
-import NoteList from '../../components/note/NoteList';
+import QuestionList from '../../components/question/QuestionList';
 
-class NotePage extends Component {
-    onNoteClick = () => {
+class QuestionPage extends Component {
+    onQuestionClick = () => {
         console.log('clicked');
     }
     render() {
-        const notes = this.props.notes;
+        const questions = this.props.questions;
 
         return (
             <section>
                 <Container>
-                    <Link to="notes/add">Create Note</Link>
+                    <Link to="questions/add">Create Question</Link>
                 </Container>
 
-                <NoteList notes={notes} onNoteClick={this.onNoteClick} />
+                <QuestionList questions={questions} onQuestionClick={this.onQuestionClick} />
             </section>
         );
     }
 }
 
-NotePage.propTypes = {
-    notes: PropTypes.arrayOf(PropTypes.shape({
+QuestionPage.propTypes = {
+    questions: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired
@@ -36,12 +36,12 @@ NotePage.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    notes: state.notes
+    questions: state.questions
 });
 
 
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(noteActions, dispatch)
+    actions: bindActionCreators(questionActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotePage);
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionPage);

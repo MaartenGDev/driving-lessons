@@ -1,1 +1,2 @@
-export const ADD_NOTE = 'ADD_NOTE';
+export const ADD_QUESTION = 'ADD_QUESTION';
+export const UPDATE_QUESTION = 'UPDATE_QUESTION';
