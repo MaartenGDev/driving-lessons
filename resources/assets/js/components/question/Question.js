@@ -1,19 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
+const Question = ({value, answers}) => {
+  return (
+    <section>
+      <h1>{value}</h1>
+      <p>{answers.join(', ')}</p>
+    </section>
+  )
+}
 
-const Note = ({title, body}) => {
-    return (
-       <section>
-           <h1>{title}</h1>
-           <p>{body}</p>
-       </section>
-    );
-};
+Question.propTypes = {
+  value: PropTypes.string.isRequired,
+  answers: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired
+  }).isRequired).isRequired,
+}
 
-Note.propTypes = {
-    title: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
-};
-
-export default Note;
+export default Question

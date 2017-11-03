@@ -3,12 +3,12 @@ import QuestionApi from '../services/QuestionApi'
 
 export const createQuestionSuccess = (question) => ({
   type: ADD_QUESTION,
-  question: QuestionApi.createOrUpdate(question)
+  question
 })
 
 export const updateQuestionSuccess = (question) => ({
   type: UPDATE_QUESTION,
-  question: QuestionApi.createOrUpdate(question)
+  question
 })
 
 export const updateQuestion = (question) => {

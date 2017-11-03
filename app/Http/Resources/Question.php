@@ -16,6 +16,7 @@ class Question extends Resource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'value' => $this->value,
             'answers' => AnswerResource::collection($this->answers)
         ];

@@ -1,47 +1,49 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as questionActions from '../../actions/questionActions';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as questionActions from '../../actions/questionActions'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
 
-import Container from '../../components/common/Container';
-import QuestionList from '../../components/question/QuestionList';
+import Container from '../../components/common/Container'
+import QuestionList from '../../components/question/QuestionList'
 
 class QuestionPage extends Component {
-    onQuestionClick = () => {
-        console.log('clicked');
-    }
-    render() {
-        const questions = this.props.questions;
+  onQuestionClick = () => {
+    console.log('clicked')
+  }
 
-        return (
-            <section>
-                <Container>
-                    <Link to="questions/add">Create Question</Link>
-                </Container>
+  render () {
+    const questions = this.props.questions
+    return (
+      <section>
+        <Container>
+          <Link to="questions/add">Create Question</Link>
+        </Container>
 
-                <QuestionList questions={questions} onQuestionClick={this.onQuestionClick} />
-            </section>
-        );
-    }
+        <QuestionList questions={questions} onQuestionClick={this.onQuestionClick}/>
+      </section>
+    )
+  }
 }
 
 QuestionPage.propTypes = {
-    questions: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        body: PropTypes.string.isRequired
+  questions: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
+    answers: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      value: PropTypes.string.isRequired,
     }).isRequired).isRequired
-};
+  }).isRequired).isRequired
+}
 
 const mapStateToProps = (state, ownProps) => ({
-    questions: state.questions
-});
-
+  questions: state.questions
+})
 
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(questionActions, dispatch)
-});
+  actions: bindActionCreators(questionActions, dispatch)
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionPage);
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionPage)

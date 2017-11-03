@@ -10,7 +10,7 @@ class QuestionApi {
   static store (question) {
     return new Promise((res, rej) => {
       Request.postJson('/api/v1/questions', question)
-        .then(storedQuestion => res(storedQuestion))
+        .then(response => res(response.data))
         .catch(err => rej(err))
     })
   }
