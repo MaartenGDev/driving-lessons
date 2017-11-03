@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import NavigationItem from './NavigationItem'
 
-const MenuLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-  display: block;
-`
 const StyledHeader = styled.header`
   color: red;
   background-color: green;
@@ -17,20 +12,16 @@ const List = styled.ul`
   padding: 0
 `
 
-const ListItem = styled.li`
-  display: inline-block;
-`
-
 export default class Header extends Component {
   render () {
     return (
       <StyledHeader>
         <nav>
           <List>
-            <ListItem><MenuLink to={'/questions'}>Questions</MenuLink></ListItem>
-            <ListItem><MenuLink to={'/about'}>About</MenuLink></ListItem>
-            <ListItem><MenuLink to={'/todo'}>Todo</MenuLink></ListItem>
-            <ListItem><MenuLink to={'/docs'}>Docs</MenuLink></ListItem>
+            <NavigationItem to={'/questions'}>Questions</NavigationItem>
+            <NavigationItem to={'/about'}>About</NavigationItem>
+            <NavigationItem to={'/todo'}>Todo</NavigationItem>
+            <NavigationItem to={'/docs'}>Docs</NavigationItem>
           </List>
         </nav>
       </StyledHeader>

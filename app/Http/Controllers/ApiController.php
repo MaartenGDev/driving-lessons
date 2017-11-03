@@ -38,7 +38,7 @@ class ApiController extends Controller
         ]);
     }
 
-    public function respondWithSuccess($data){
+    public function respondOk($data){
         return $this->respond([
             'success' => true,
             'data' => $data

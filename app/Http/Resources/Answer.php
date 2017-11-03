@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
-use App\Http\Resources\Answer as AnswerResource;
 
-class Question extends Resource
+class Answer extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +15,7 @@ class Question extends Resource
     public function toArray($request)
     {
         return [
-            'value' => $this->value,
-            'answers' => AnswerResource::collection($this->answers)
+            'value' => $this->value
         ];
     }
 }

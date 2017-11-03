@@ -18,7 +18,7 @@ class QuestionController extends ApiController
      */
     public function index()
     {
-        return $this->respondWithSuccess(QuestionResource::collection(Question::all()));
+        return $this->respondOk(QuestionResource::collection(Question::all()));
     }
 
     /**
@@ -33,26 +33,33 @@ class QuestionController extends ApiController
 
     public function store(StoreQuestionRequest $request)
     {
-        $question = Question::create($request);
+        $question = Question::create([
+            'value' => $request->question
+        ]);
 
-        if(is_null($question)) return $this->respondNotFound('Question not found');
+        $answers = collect($request->answers)->map(function ($answer) use($question) {
+            return $question->answers()->create([
+                'question_id' => $question->id,
+                'value' => $answer
+            ]);
+        });
 
-        return $this->respondWithSuccess(new QuestionResource($question));
+        return $this->respondOk(new QuestionResource($question));
     }
 
     public function show($id)
     {
         $question = Question::find($id);
 
-        if(is_null($question)) return $this->respondNotFound('Question does not exist');
+        if (is_null($question)) return $this->respondNotFound('Question does not exist');
 
-        return $this->respondWithSuccess(new QuestionResource($question));
+        return $this->respondOk(new QuestionResource($question));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -63,8 +70,8 @@ class QuestionController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -75,7 +82,7 @@ class QuestionController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
