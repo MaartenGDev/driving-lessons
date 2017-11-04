@@ -17,6 +17,7 @@ class App extends Component {
           <Header/>
 
           <Route exact path="/questions" component={Questions}/>
+          <Route exact path="/questions/:id" component={QuestionForm}/>
           <Route exact path="/questions/add" component={QuestionForm}/>
           <Route exact path="/todo" component={Todo}/>
           <Route exact path="/about" component={About}/>
