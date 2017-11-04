@@ -7,7 +7,7 @@ import Header from './common/Header'
 import About from './about/AboutPage'
 import Todo from './todo/TodoPage'
 import Questions from '../containers/question/QuestionPage'
-import AddQuestion from '../containers/question/AddQuestion'
+import QuestionForm from '../containers/question/QuestionForm'
 
 class App extends Component {
   render () {
@@ -17,7 +17,7 @@ class App extends Component {
           <Header/>
 
           <Route exact path="/questions" component={Questions}/>
-          <Route exact path="/questions/add" component={AddQuestion}/>
+          <Route exact path="/questions/add" component={QuestionForm}/>
           <Route exact path="/todo" component={Todo}/>
           <Route exact path="/about" component={About}/>
         </main>

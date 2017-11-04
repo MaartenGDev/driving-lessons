@@ -20,16 +20,14 @@ class QuestionPage extends Component {
   render () {
     const questions = this.props.questions
     return (
-      <section className="container mx-auto mt-6 bg-white shadow-md rounded">
-        <section className="p-4">
-          <Link to="questions/add"
-                className="bg-green hover:bg-green-dark text-white p-2 mb-2 rounded no-underline inline-block text-sm">Create
-            Question</Link>
+      <section className="container mx-auto mt-6 bg-white shadow-md rounded p-4">
+        <Link to="questions/add"
+              className="bg-green hover:bg-green-dark text-white p-2 mb-2 rounded no-underline inline-block text-sm">Create
+          Question</Link>
 
-          <h3 className="my-4 font-normal">Questions</h3>
+        <h3 className="my-4 ml-0 font-normal">Questions</h3>
 
-          <QuestionList questions={questions} onQuestionClick={this.onQuestionClick}/>
-        </section>
+        <QuestionList questions={questions} onQuestionClick={this.onQuestionClick}/>
       </section>
     )
   }
