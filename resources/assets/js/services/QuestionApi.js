@@ -15,6 +15,13 @@ class QuestionApi {
     })
   }
 
+  static all () {
+    return new Promise((res, rej) => {
+      Request.getJson('/api/v1/questions')
+        .then(response => res(response.data))
+    })
+  }
+
   static update (question) {
     console.log('updating...')
   }

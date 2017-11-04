@@ -2,6 +2,9 @@ import * as types from '../actions/actionTypes'
 
 const questions = (state = [], action) => {
   switch (action.type) {
+    case types.LOAD_QUESTIONS: {
+      return action.questions;
+    }
     case types.ADD_QUESTION:
       return [...state,
         Object.assign({}, action.question)

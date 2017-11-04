@@ -1,21 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Question from './Question'
 
-const QuestionList = ({questions, onQuestionClick}) => {
-  console.log(questions)
-
+const QuestionList = ({questions}) => {
+  const onQuestionClick = () => {}
   return (
-    <section>
-      {questions.map(question => {
-        return <Question
-          key={question.id}
-          value={question.value}
-          answers={question.answers}
-          onClick={() => onQuestionClick(question.id)}
-        />
-      })}
-    </section>
+    <table className="w-full text-left" style={{borderCollapse: 'collapse'}}>
+      <tbody>
+      <tr className="hover:bg-grey-light">
+        <td className="p-2 font-bold">Question</td>
+        <td className="p-2 font-bold">Answer count</td>
+        <td className="p-2 font-bold">Edit</td>
+        <td className="p-2 font-bold">Remove</td>
+      </tr>
+      {questions.map(question =>
+        <tr className="hover:bg-grey-light" key={question.id}>
+          <td className="p-2">{question.value}</td>
+          <td className="p-2">{question.answers.length}</td>
+          <td className="p-2"><span className="text-blue">Edit</span> </td>
+          <td className="p-2"><span className="text-red">Remove</span></td>
+        </tr>
+      )}
+      </tbody>
+    </table>
   )
 }
 
@@ -27,8 +33,7 @@ QuestionList.propTypes = {
       id: PropTypes.number.isRequired,
       value: PropTypes.string.isRequired,
     }).isRequired).isRequired
-  }).isRequired).isRequired,
-  onQuestionClick: PropTypes.func.isRequired
+  }).isRequired).isRequired
 }
 
 export default QuestionList

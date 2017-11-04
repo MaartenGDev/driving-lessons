@@ -1,5 +1,5 @@
 let mix = require('laravel-mix')
-
+let tailwindcss = require('tailwindcss');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,4 +12,7 @@ let mix = require('laravel-mix')
  */
 
 mix.react('resources/assets/js/index.js', 'public/js/app.js')
-  .sass('resources/assets/sass/app.sass', 'public/css')
+
+mix.postCss('resources/assets/js/index.css', 'public/css/app.css', [
+  tailwindcss('./tailwind.js'),
+]);

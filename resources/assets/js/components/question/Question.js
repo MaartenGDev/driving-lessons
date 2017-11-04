@@ -5,7 +5,7 @@ const Question = ({value, answers}) => {
   return (
     <section>
       <h1>{value}</h1>
-      <p>{answers.join(', ')}</p>
+      <p>{answers.map(x => x.value).join(', ')}</p>
     </section>
   )
 }

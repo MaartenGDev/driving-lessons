@@ -1,30 +1,19 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
-import NavigationItem from './NavigationItem'
-
-const StyledHeader = styled.header`
-  color: red;
-  background-color: green;
-`
-
-const List = styled.ul`
-  margin: 0;
-  padding: 0
-`
+import { Link } from 'react-router-dom'
 
 export default class Header extends Component {
   render () {
     return (
-      <StyledHeader>
-        <nav>
-          <List>
-            <NavigationItem to={'/questions'}>Questions</NavigationItem>
-            <NavigationItem to={'/about'}>About</NavigationItem>
-            <NavigationItem to={'/todo'}>Todo</NavigationItem>
-            <NavigationItem to={'/docs'}>Docs</NavigationItem>
-          </List>
+      <header className="border-b-2 border-grey-light shadow">
+        <nav className="container mx-auto">
+          <ul className="flex list-reset">
+            <li className="mr-6"><Link className="text-blue hover:text-blue-darker p-4 inline-block" to={'/questions'}>Questions</Link></li>
+            <li className="mr-6"><Link className="text-blue hover:text-blue-darker p-4 inline-block" to={'/about'}>About</Link></li>
+            <li className="mr-6"><Link className="text-blue hover:text-blue-darker p-4 inline-block" to={'/todo'}>Todo</Link></li>
+            <li className="mr-6"><Link className="text-blue hover:text-blue-darker p-4 inline-block" to={'/docs'}>Docs</Link></li>
+          </ul>
         </nav>
-      </StyledHeader>
+      </header>
     )
   }
 }

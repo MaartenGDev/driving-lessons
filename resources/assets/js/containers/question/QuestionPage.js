@@ -5,10 +5,14 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
-import Container from '../../components/common/Container'
 import QuestionList from '../../components/question/QuestionList'
+import { loadQuestions } from '../../actions/questionActions'
 
 class QuestionPage extends Component {
+  componentDidMount () {
+    this.props.dispatch(loadQuestions())
+  }
+
   onQuestionClick = () => {
     console.log('clicked')
   }
@@ -16,12 +20,16 @@ class QuestionPage extends Component {
   render () {
     const questions = this.props.questions
     return (
-      <section>
-        <Container>
-          <Link to="questions/add">Create Question</Link>
-        </Container>
+      <section className="container mx-auto mt-6 bg-white shadow-md rounded">
+        <section className="p-4">
+          <Link to="questions/add"
+                className="bg-green hover:bg-green-dark text-white p-2 mb-2 rounded no-underline inline-block text-sm">Create
+            Question</Link>
 
-        <QuestionList questions={questions} onQuestionClick={this.onQuestionClick}/>
+          <h3 className="my-4 font-normal">Questions</h3>
+
+          <QuestionList questions={questions} onQuestionClick={this.onQuestionClick}/>
+        </section>
       </section>
     )
   }
@@ -42,7 +50,8 @@ const mapStateToProps = (state, ownProps) => ({
   questions: state.questions
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
+  dispatch,
   actions: bindActionCreators(questionActions, dispatch)
 })
 
