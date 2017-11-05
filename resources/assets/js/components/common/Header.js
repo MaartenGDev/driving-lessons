@@ -8,6 +8,7 @@ export default class Header extends Component {
         <nav className="container mx-auto">
           <ul className="flex list-reset">
             <li><Link className="text-blue hover:text-blue-darker p-4 inline-block no-underline" to={'/questions'}>Questions</Link></li>
+            <li><Link className="text-blue hover:text-blue-darker p-4 inline-block no-underline" to={'/tests'}>Tests</Link></li>
             <li><Link className="text-blue hover:text-blue-darker p-4 inline-block no-underline" to={'/about'}>About</Link></li>
           </ul>
         </nav>

@@ -15,7 +15,6 @@ export const destroyQuestionSuccess = question => ({
   type: DESTROY_QUESTION,
   question
 })
-
 export const loadQuestionsSuccess = questions => ({
   type: LOAD_QUESTIONS,
   questions
