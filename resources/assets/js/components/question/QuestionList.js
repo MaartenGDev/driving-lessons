@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 const QuestionList = ({questions}) => {
-  const onQuestionClick = () => {}
   return (
     <table className="w-full text-left" style={{borderCollapse: 'collapse'}}>
       <tbody>

@@ -7,6 +7,14 @@ class QuestionForm extends Component {
     question: Object.assign({}, this.props.question)
   }
 
+  componentWillReceiveProps (nextProps) {
+    const {question} = this.props
+
+    this.setState({
+      question: Object.assign({}, nextProps.question),
+    })
+  }
+
   handleSave = e => {
     e.preventDefault()
     this.props.dispatch(updateQuestion(this.state.form))
@@ -14,23 +22,22 @@ class QuestionForm extends Component {
 
   handleChange = event => {
     const {name, value} = event.target
-    const previousForm = this.state.form
+    const previousForm = this.state.question
 
-    this.setState({form: Object.assign(previousForm, {[name]: value})})
+    this.setState({question: Object.assign(previousForm, {[name]: value})})
   }
 
   handleListChange = (event, listIndex) => {
     const {name, value} = event.target
-    const previousForm = this.state.form
+    const previousForm = this.state.question
 
-    const listValues = this.state.form[name]
-    listValues[listIndex] = value
+    const listValues = this.state.question[name]
+    listValues[listIndex] = Object.assign({}, listValues[listIndex], {value: value});
 
-    this.setState({form: Object.assign(previousForm, {[name]: listValues})})
+    this.setState({question: Object.assign(previousForm, {[name]: listValues})})
   }
 
   render () {
-    console.log(this.state.form)
     return (
       <section className="container mx-auto mt-6 bg-white shadow-md rounded p-4">
         <form className="w-full" onSubmit={this.handleSave}>
@@ -80,19 +87,20 @@ class QuestionForm extends Component {
     )
   }
 }
+
 const buildQuestion = () => ({
   value: '',
   answers: []
-});
+})
 
 const mapStateToProps = (state, ownProps) => {
-  const questionId = parseInt(ownProps.match.params.id);
+  const questionId = parseInt(ownProps.match.params.id)
   const question = state.questions.find(x => x.id === questionId)
 
   return {
-    question: question !== undefined
-      ? question
-      : buildQuestion()
+    question: question === undefined
+      ? buildQuestion()
+      : question
   }
 }
 

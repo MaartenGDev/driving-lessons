@@ -6,17 +6,8 @@ import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
 import QuestionList from '../../components/question/QuestionList'
-import { loadQuestions } from '../../actions/questionActions'
 
 class QuestionPage extends Component {
-  componentDidMount () {
-    this.props.dispatch(loadQuestions())
-  }
-
-  onQuestionClick = () => {
-    console.log('clicked')
-  }
-
   render () {
     const questions = this.props.questions
     return (
@@ -27,7 +18,7 @@ class QuestionPage extends Component {
 
         <h3 className="my-4 ml-0 font-normal">Questions</h3>
 
-        <QuestionList questions={questions} onQuestionClick={this.onQuestionClick}/>
+        <QuestionList questions={questions} />
       </section>
     )
   }

@@ -3523,10 +3523,6 @@ button,
   padding: 0;
 }
 
-a {
-  text-decoration: none;
-}
-
 @media (min-width: 576px) {
   .sm\:appearance-none {
     appearance: none;
