@@ -31,7 +31,7 @@ class TestQuestion extends Component {
   validateQuestion = (e, question) => {
     e.preventDefault()
     QuestionApi.validate(question).then(res => {
-      const hasProvidedCorrectAnswers = true || res.failedFields.length === 0
+      const hasProvidedCorrectAnswers = res.failedFields.length === 0
 
       if (hasProvidedCorrectAnswers) {
         this.setState({completedQuestionIds: [...this.state.completedQuestionIds, question.id]})

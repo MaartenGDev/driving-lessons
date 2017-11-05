@@ -8,11 +8,13 @@ React SPA to practice questions with multiple answers.
 ![Create Question](./docs/create_question.png)
 #### Edit Question
 ![Create Question](./docs/edit_question.png)
+#### Practice mode
+![Create Question](./docs/test_mode.png)
 
 ## Installation
 ```bash
-git clone git@github.com:MaartenGDev/driving-lessons.git
-cd driving-lessons
+git clone git@github.com:MaartenGDev/multi-questions.git
+cd multi-questions
 yarn install
 ```
 
