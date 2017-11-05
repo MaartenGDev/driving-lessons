@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-const QuestionList = ({questions}) => {
+const QuestionList = ({questions, onDeleteQuestionClick}) => {
   return (
     <table className="w-full text-left" style={{borderCollapse: 'collapse'}}>
       <tbody>
@@ -16,8 +16,8 @@ const QuestionList = ({questions}) => {
         <tr className="hover:bg-grey-light" key={question.id}>
           <td className="text-grey-darker p-2">{question.value}</td>
           <td className="text-grey-darker p-2">{question.answers.length}</td>
-          <td className="text-grey-darker p-2"><Link className="text-blue" to={"/questions/" + question.id}>Edit</Link> </td>
-          <td className="text-grey-darker p-2"><span className="text-red">Remove</span></td>
+          <td className="text-grey-darker p-2"><Link className="text-blue no-underline" to={`/questions/${question.id}`}>Edit</Link> </td>
+          <td className="text-grey-darker p-2"><span className="text-red no-underline" onClick={e => onDeleteQuestionClick(e, question)}>Remove</span></td>
         </tr>
       )}
       </tbody>
@@ -33,7 +33,8 @@ QuestionList.propTypes = {
       id: PropTypes.number.isRequired,
       value: PropTypes.string.isRequired,
     }).isRequired).isRequired
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  onDeleteQuestionClick: PropTypes.func.isRequired
 }
 
 export default QuestionList

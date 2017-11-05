@@ -8,6 +8,8 @@ use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Resources\Question as QuestionResource;
 use App\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Monolog\Logger;
 
 class QuestionController extends ApiController
 {
@@ -33,50 +35,29 @@ class QuestionController extends ApiController
 
     public function store(StoreQuestionRequest $request)
     {
-        $question = Question::create([
-            'value' => $request->question
-        ]);
+        $question = Question::create($request->all());
 
         $answers = collect($request->answers)->map(function ($answer) use($question) {
             return $question->answers()->create([
-                'question_id' => $question->id,
-                'value' => $answer
+                'value' => $answer['value']
             ]);
         });
 
         return $this->respondOk(new QuestionResource($question));
     }
 
-    public function show($id)
+    public function show(Question $question)
     {
-        $question = Question::find($id);
-
         if (is_null($question)) return $this->respondNotFound('Question does not exist');
 
         return $this->respondOk(new QuestionResource($question));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(StoreQuestionRequest $request, Question $question)
     {
-        //
-    }
+        $question->update($request->all());
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return $this->respondOk(new QuestionResource($question));
     }
 
     /**
@@ -85,8 +66,11 @@ class QuestionController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Question $question)
     {
-        //
+        $question->answers()->delete();
+        $question->delete();
+
+        return $this->respondOk($question);
     }
 }

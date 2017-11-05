@@ -1,13 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as questionActions from '../../actions/questionActions'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
 
 import QuestionList from '../../components/question/QuestionList'
+import { destroyQuestion } from '../../actions/questionActions'
 
 class QuestionPage extends Component {
+  deleteQuestion = (e, question) => {
+    const {dispatch} = this.props
+
+    dispatch(destroyQuestion(question))
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      questions: Object.assign({}, nextProps.questions),
+    })
+  }
+
   render () {
     const questions = this.props.questions
     return (
@@ -18,7 +29,7 @@ class QuestionPage extends Component {
 
         <h3 className="my-4 ml-0 font-normal">Questions</h3>
 
-        <QuestionList questions={questions} />
+        <QuestionList questions={questions} onDeleteQuestionClick={this.deleteQuestion}/>
       </section>
     )
   }
@@ -40,8 +51,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  dispatch,
-  actions: bindActionCreators(questionActions, dispatch)
+  dispatch
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionPage)

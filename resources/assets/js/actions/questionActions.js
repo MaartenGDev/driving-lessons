@@ -1,4 +1,4 @@
-import { ADD_QUESTION, UPDATE_QUESTION, LOAD_QUESTIONS } from './actionTypes'
+import { ADD_QUESTION, UPDATE_QUESTION, LOAD_QUESTIONS, DESTROY_QUESTION } from './actionTypes'
 import QuestionApi from '../services/QuestionApi'
 
 export const createQuestionSuccess = question => ({
@@ -11,6 +11,11 @@ export const updateQuestionSuccess = question => ({
   question
 })
 
+export const destroyQuestionSuccess = question => ({
+  type: DESTROY_QUESTION,
+  question
+})
+
 export const loadQuestionsSuccess = questions => ({
   type: LOAD_QUESTIONS,
   questions
@@ -18,10 +23,10 @@ export const loadQuestionsSuccess = questions => ({
 
 export const loadQuestions = () => {
   return async dispatch => {
-    const questions = await QuestionApi.all();
+    const questions = await QuestionApi.all()
 
-    dispatch(loadQuestionsSuccess(questions));
-  };
+    dispatch(loadQuestionsSuccess(questions))
+  }
 }
 
 export const updateQuestion = question => {
@@ -32,5 +37,12 @@ export const updateQuestion = question => {
           ? dispatch(createQuestionSuccess(savedQuestion))
           : dispatch(updateQuestionSuccess(savedQuestion))
       })
+  }
+}
+
+export const destroyQuestion = question => {
+  return async dispatch => {
+    return QuestionApi.destroy(question)
+      .then(res => dispatch(destroyQuestionSuccess(question)))
   }
 }

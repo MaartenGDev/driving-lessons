@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
   BrowserRouter as Router,
-  Route
+  Route, Switch
 } from 'react-router-dom'
 import Header from './common/Header'
 import About from './about/AboutPage'
@@ -16,11 +16,13 @@ class App extends Component {
         <main className="App">
           <Header/>
 
-          <Route exact path="/questions" component={Questions}/>
-          <Route exact path="/questions/:id" component={QuestionForm}/>
-          <Route exact path="/questions/add" component={QuestionForm}/>
-          <Route exact path="/todo" component={Todo}/>
-          <Route exact path="/about" component={About}/>
+          <Switch>
+            <Route exact path="/questions" component={Questions}/>
+            <Route exact path="/questions/add" component={QuestionForm}/>
+            <Route exact path="/questions/:id" component={QuestionForm}/>
+            <Route exact path="/todo" component={Todo}/>
+            <Route exact path="/about" component={About}/>
+          </Switch>
         </main>
       </Router>
     )
