@@ -33,6 +33,7 @@ export const updateQuestion = question => {
   return async dispatch => {
     return QuestionApi.createOrUpdate(question)
       .then(savedQuestion => {
+        console.log(question);
         question.id === undefined
           ? dispatch(createQuestionSuccess(savedQuestion))
           : dispatch(updateQuestionSuccess(savedQuestion))

@@ -43,8 +43,7 @@ class QuestionForm extends Component {
   }
 
   destroyAnswer = (e, index) => {
-    let answers = [...this.state.question.answers]
-    answers.splice(index, 1)
+    const answers = this.state.question.answers.filter((x, i) => i !== index)
     this.setState({question: Object.assign({}, this.state.question, {answers})})
   }
 

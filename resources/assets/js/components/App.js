@@ -5,9 +5,8 @@ import {
 } from 'react-router-dom'
 import Header from './common/Header'
 import About from './about/AboutPage'
-import Todo from './todo/TodoPage'
 import Questions from '../containers/question/QuestionPage'
-import QuestionForm from '../containers/question/QuestionForm'
+import ManageQuestion from '../containers/question/ManageQuestion'
 
 class App extends Component {
   render () {
@@ -18,9 +17,8 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/questions" component={Questions}/>
-            <Route exact path="/questions/add" component={QuestionForm}/>
-            <Route exact path="/questions/:id" component={QuestionForm}/>
-            <Route exact path="/todo" component={Todo}/>
+            <Route exact path="/questions/add" component={ManageQuestion}/>
+            <Route exact path="/questions/:id" component={ManageQuestion}/>
             <Route exact path="/about" component={About}/>
           </Switch>
         </main>

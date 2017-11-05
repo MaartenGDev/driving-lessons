@@ -23,25 +23,11 @@ class QuestionController extends ApiController
         return $this->respondOk(QuestionResource::collection(Question::all()));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     public function store(StoreQuestionRequest $request)
     {
         $question = Question::create($request->all());
 
-        $answers = collect($request->answers)->map(function ($answer) use($question) {
-            return $question->answers()->create([
-                'value' => $answer['value']
-            ]);
-        });
+        $question->answers()->createMany($this->toValueArray($request->answers));
 
         return $this->respondOk(new QuestionResource($question));
     }
@@ -55,6 +41,8 @@ class QuestionController extends ApiController
 
     public function update(StoreQuestionRequest $request, Question $question)
     {
+        $question->answers()->delete();
+        $question->answers()->createMany($this->toValueArray($request->answers));
         $question->update($request->all());
 
         return $this->respondOk(new QuestionResource($question));
@@ -63,7 +51,7 @@ class QuestionController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param Question $question
      * @return \Illuminate\Http\Response
      */
     public function destroy(Question $question)
@@ -72,5 +60,11 @@ class QuestionController extends ApiController
         $question->delete();
 
         return $this->respondOk($question);
+    }
+
+    protected function toValueArray($answers){
+       return collect($answers)->map(function ($answer) {
+           return ['value' => $answer['value']];
+       })->toArray();
     }
 }

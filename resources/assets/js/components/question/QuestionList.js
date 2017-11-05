@@ -6,7 +6,7 @@ const QuestionList = ({questions, onDeleteQuestionClick}) => {
   return (
     <table className="w-full text-left" style={{borderCollapse: 'collapse'}}>
       <tbody>
-      <tr className="hover:bg-grey-light">
+      <tr>
         <td className="p-2 text-grey-darkest">Question</td>
         <td className="p-2 text-grey-darkest">Answer count</td>
         <td className="p-2 text-grey-darkest">Edit</td>
