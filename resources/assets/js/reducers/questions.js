@@ -1,4 +1,4 @@
-import * as types from '../actions/actionTypes'
+import * as types from '../actions/questionTypes'
 
 const questions = (state = [], action) => {
   switch (action.type) {

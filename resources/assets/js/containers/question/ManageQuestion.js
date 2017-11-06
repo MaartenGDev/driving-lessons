@@ -25,7 +25,7 @@ class ManageQuestion extends Component {
 
     return (
       <section className="container mx-auto mt-6 bg-white shadow-md rounded p-4">
-        <QuestionForm question={this.state.question} handleSubmit={this.handleSubmit} submitLabel={hasBeenSaved ? 'Update' : 'Create'}/>
+        <QuestionForm question={this.state.question} handleSubmit={this.handleSubmit} submitLabel={hasBeenSaved ? 'Update' : 'Create'} questionIsEditable={true}/>
       </section>
     )
   }

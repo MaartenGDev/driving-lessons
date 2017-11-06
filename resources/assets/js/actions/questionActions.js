@@ -1,4 +1,4 @@
-import { ADD_QUESTION, UPDATE_QUESTION, LOAD_QUESTIONS, DESTROY_QUESTION } from './actionTypes'
+import { ADD_QUESTION, UPDATE_QUESTION, LOAD_QUESTIONS, DESTROY_QUESTION } from './questionTypes'
 import QuestionApi from '../services/QuestionApi'
 
 export const createQuestionSuccess = question => ({

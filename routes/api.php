@@ -16,4 +16,5 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'v1'], function () {
     Route::post('questions/{question}/validate', 'Api\\QuestionAnswerController@store');
     Route::resource('questions', 'Api\\QuestionController');
+    Route::resource('exams', 'Api\\ExamController');
 });

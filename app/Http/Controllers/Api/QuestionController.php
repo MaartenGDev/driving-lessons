@@ -13,11 +13,6 @@ use Monolog\Logger;
 
 class QuestionController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return $this->respondOk(QuestionResource::collection(Question::all()));
