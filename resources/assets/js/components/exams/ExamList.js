@@ -9,6 +9,7 @@ const ExamList = ({exams, onDeleteExamClick}) => {
       <tr>
         <td className="p-2 text-grey-darkest">Name</td>
         <td className="p-2 text-grey-darkest">Description</td>
+        <td className="p-2 text-grey-darkest">Manage Questions</td>
         <td className="p-2 text-grey-darkest">Edit</td>
         <td className="p-2 text-grey-darkest">Remove</td>
       </tr>
@@ -17,8 +18,14 @@ const ExamList = ({exams, onDeleteExamClick}) => {
           <td className="text-grey-darker p-2">{exam.name}</td>
           <td className="text-grey-darker p-2">{exam.description}</td>
           <td className="text-grey-darker p-2">{exam.questions.length}</td>
-          <td className="text-grey-darker p-2"><Link className="text-blue no-underline"
-                                                     to={`/exams/${exam.id}`}>Edit</Link></td>
+
+          <td className="text-grey-darker p-2">
+            <Link className="text-blue no-underline" to={`/exams/${exam.id}/questions`}>Manage Questions</Link>
+          </td>
+
+          <td className="text-grey-darker p-2">
+            <Link className="text-blue no-underline" to={`/exams/${exam.id}/edit`}>Edit</Link>
+          </td>
           <td className="text-grey-darker p-2">
             <span className="text-red no-underline" onClick={e => onDeleteExamClick(e, exam)}>Remove</span>
           </td>

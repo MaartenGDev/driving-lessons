@@ -25,6 +25,7 @@ class StoreQuestionRequest extends FormRequest
     public function rules()
     {
         return [
+            'exam_id' => 'required',
             'value' => 'required',
             'answers' => 'required'
         ];

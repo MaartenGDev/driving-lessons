@@ -1,17 +1,13 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import * as examActions from '../../actions/examActions'
 import { bindActionCreators } from 'redux'
 import ExamList from '../../components/exams/ExamList'
 import { Link } from 'react-router-dom'
 
-class ExamPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-  }
-
+class ExamPage extends Component {
   state = {
-    exams: []
+    exams: this.props.exams
   }
 
   deleteExam = (e, exam) => {
@@ -39,20 +35,12 @@ class ExamPage extends React.Component {
   }
 }
 
-ExamPage.propTypes = {
-  //myProp: PropTypes.string.isRequired
-}
+const mapStateToProps = (state, ownProps) => ({
+  exams: state.exams
+})
 
-function mapStateToProps (state, ownProps) {
-  return {
-    exams: state.exams
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    actions: bindActionCreators(examActions, dispatch)
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(examActions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExamPage)

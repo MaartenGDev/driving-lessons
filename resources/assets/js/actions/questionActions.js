@@ -15,24 +15,11 @@ export const destroyQuestionSuccess = question => ({
   type: DESTROY_QUESTION,
   question
 })
-export const loadQuestionsSuccess = questions => ({
-  type: LOAD_QUESTIONS,
-  questions
-})
-
-export const loadQuestions = () => {
-  return async dispatch => {
-    const questions = await QuestionApi.all()
-
-    dispatch(loadQuestionsSuccess(questions))
-  }
-}
 
 export const updateQuestion = question => {
   return async dispatch => {
     return QuestionApi.createOrUpdate(question)
       .then(savedQuestion => {
-        console.log(question);
         question.id === undefined
           ? dispatch(createQuestionSuccess(savedQuestion))
           : dispatch(updateQuestionSuccess(savedQuestion))

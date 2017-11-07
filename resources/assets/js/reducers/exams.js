@@ -1,6 +1,6 @@
 import * as types from '../actions/examTypes'
 
-const questions = (state = [], action) => {
+const exams = (state = [], action) => {
   switch (action.type) {
     case types.ADD_EXAM:
       return [...state,
@@ -18,4 +18,4 @@ const questions = (state = [], action) => {
   }
 }
 
-export default questions
+export default exams

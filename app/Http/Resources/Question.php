@@ -17,6 +17,7 @@ class Question extends Resource
     {
         return [
             'id' => $this->id,
+            'exam_id' => $this->exam_id,
             'value' => $this->value,
             'answers' => AnswerResource::collection($this->answers)
         ];
