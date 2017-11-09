@@ -4,28 +4,25 @@ import QuestionForm from '../question/QuestionForm'
 import Numbers from '../../helpers/Numbers'
 import QuestionApi from '../../services/QuestionApi'
 
-class TestQuestion extends Component {
+class PracticeExamPage extends Component {
   state = {
-    questions: [],
-    currentQuestion: {
-      value: '',
-      answers: [{value: ''}]
-    },
-    completedQuestionIds: []
+    exam: Object.assign({}, this.props.exam),
+    currentQuestion: this.props.currentQuestion,
+    completedQuestionIds: this.props.completedQuestionIds
   }
 
   componentWillReceiveProps (nextProps) {
-    const nextQuestion = this.getNextQuestion(nextProps.questions, this.state.completedQuestionIds)
+    const nextQuestion = this.getNextQuestion(nextProps.exam.questions, [])
 
     this.setState({
-      questions: nextProps.questions,
+      exam: nextProps.exam,
       currentQuestion: nextQuestion,
-      completedQuestionIds: this.state.completedQuestionIds
+      completedQuestionIds: []
     })
   }
 
   loadNextQuestion = () => {
-    this.setState({currentQuestion: this.getNextQuestion(this.state.questions, this.state.completedQuestionIds)})
+    this.setState({currentQuestion: this.getNextQuestion(this.state.exam.questions, this.state.completedQuestionIds)})
   }
 
   validateQuestion = (e, question) => {
@@ -42,7 +39,7 @@ class TestQuestion extends Component {
   }
 
   tryLoadNextQuestion = () => {
-    const hasQuestionsLeft = this.state.questions.length !== this.state.completedQuestionIds.length
+    const hasQuestionsLeft = this.state.exam.questions.length !== this.state.completedQuestionIds.length
 
     if (hasQuestionsLeft) {
       this.loadNextQuestion()
@@ -56,8 +53,11 @@ class TestQuestion extends Component {
   }
 
   render () {
-    const {currentQuestion, questions, completedQuestionIds} = this.state
-    const hasQuestionsLeft = this.state.questions.length !== this.state.completedQuestionIds.length
+    const {exam, currentQuestion, completedQuestionIds} = this.state
+    const {questions} = exam;
+
+    console.log(exam);
+    const hasQuestionsLeft = currentQuestion !== undefined && questions.length !== completedQuestionIds.length
 
     return (
       <section className="container mx-auto">
@@ -76,9 +76,21 @@ class TestQuestion extends Component {
   }
 }
 
+const buildEmptyQuestion = exam => ({
+  id: undefined,
+  value: '',
+  answers: [{value: ''}]
+})
+
+
 const mapStateToProps = (state, ownProps) => {
+  const {id} = ownProps.match.params
+  const exam = state.exams.find(x => x.id === parseInt(id))
+
   return {
-    questions: state.questions
+    exam: exam || {questions: []},
+    currentQuestion: buildEmptyQuestion(),
+    completedQuestionIds: []
   }
 }
 
@@ -86,4 +98,4 @@ const mapDispatchToProps = dispatch => ({
   dispatch
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TestQuestion)
+export default connect(mapStateToProps, mapDispatchToProps)(PracticeExamPage)

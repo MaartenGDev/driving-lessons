@@ -54,13 +54,9 @@ const mapStateToProps = (state, ownProps) => {
     ? undefined
     : exam.questions.find(x => x.id === parseInt(questionId))
 
-  console.log(exam)
-
   return {
-    exam: exam,
-    question: question === undefined
-      ? buildQuestion(exam)
-      : question
+    exam,
+    question: question || buildQuestion(exam)
   }
 }
 
