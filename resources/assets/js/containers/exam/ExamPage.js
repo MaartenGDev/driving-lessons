@@ -15,6 +15,7 @@ class ExamPage extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    console.log(nextProps)
     this.setState({
       exams: nextProps.exams,
     })

@@ -6,8 +6,8 @@ import { updateExam } from '../../actions/examActions'
 import { NOT_VALIDATED} from './questionAnswerTypes'
 class ManageQuestion extends Component {
   state = {
-    exam: this.props.exam,
-    question: Object.assign({}, this.props.question)
+    exam: {...this.props.exam},
+    question: {...this.props.question}
   }
 
   componentWillReceiveProps (nextProps) {
@@ -19,11 +19,13 @@ class ManageQuestion extends Component {
   handleSubmit = (e, question) => {
     e.preventDefault()
     const {exam} = this.state
-    this.props.dispatch(updateQuestion(question))
 
     const updatedQuestionsForExam = [...exam.questions.filter(x => x.id !== parseInt(question.id)), question]
 
-    this.props.dispatch(updateExam(Object.assign({}, exam, {questions: updatedQuestionsForExam})));
+    this.props.dispatch(updateQuestion(question))
+
+    this.props.dispatch(updateExam({...exam, questions: updatedQuestionsForExam}));
+
     this.props.history.push(`/exams/${exam.id}/questions`)
   }
 
@@ -54,6 +56,7 @@ const mapStateToProps = (state, ownProps) => {
     ? undefined
     : exam.questions.find(x => x.id === parseInt(questionId))
 
+  console.log(state)
   return {
     exam,
     question: question || buildQuestion(exam)

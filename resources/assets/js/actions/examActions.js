@@ -31,9 +31,10 @@ export const updateExam = exam => {
   return async dispatch => {
     return ExamApi.createOrUpdate(exam)
       .then(savedExam => {
+        const providedExamWithPossibleNewId = {...exam, id: savedExam.id};
         exam.id === undefined
-          ? dispatch(createExamSuccess(savedExam))
-          : dispatch(updateExamSuccess(savedExam))
+          ? dispatch(createExamSuccess(providedExamWithPossibleNewId))
+          : dispatch(updateExamSuccess(providedExamWithPossibleNewId))
       })
   }
 }
