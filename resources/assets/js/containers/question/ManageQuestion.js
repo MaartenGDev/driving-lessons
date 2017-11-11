@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { updateQuestion } from './../../actions/questionActions'
 import QuestionForm from './QuestionForm'
 import { updateExam } from '../../actions/examActions'
-
+import { NOT_VALIDATED} from './questionAnswerTypes'
 class ManageQuestion extends Component {
   state = {
     exam: this.props.exam,
@@ -43,7 +43,7 @@ const buildQuestion = exam => ({
   id: undefined,
   exam_id: exam !== undefined ? exam.id : undefined,
   value: '',
-  answers: [{value: ''}]
+  answers: [{value: '', status: NOT_VALIDATED}]
 })
 
 const mapStateToProps = (state, ownProps) => {

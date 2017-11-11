@@ -22,9 +22,8 @@ export const loadExamsSuccess = exams => ({
 
 export const loadExams = () => {
   return async dispatch => {
-    const exams = await ExamApi.all()
-
-    dispatch(loadExamsSuccess(exams))
+    return ExamApi.all()
+      .then(bier => dispatch(loadExamsSuccess(bier)))
   }
 }
 

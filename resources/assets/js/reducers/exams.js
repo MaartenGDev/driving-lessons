@@ -11,7 +11,7 @@ const exams = (state = [], action) => {
     case types.DESTROY_EXAM:
       return [...state.filter(exam => exam.id !== action.exam.id)]
     case types.LOAD_EXAMS: {
-      return action.exams;
+      return [...action.exams];
     }
     default:
       return state

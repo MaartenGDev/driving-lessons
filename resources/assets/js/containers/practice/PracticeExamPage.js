@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import QuestionForm from '../question/QuestionForm'
 import Numbers from '../../helpers/Numbers'
-import QuestionApi from '../../services/QuestionApi'
+import { NOT_VALIDATED, CORRECT, INCORRECT } from '../question/questionAnswerTypes'
 
 class PracticeExamPage extends Component {
   state = {
-    exam: Object.assign({}, this.props.exam),
-    currentQuestion: this.props.currentQuestion,
+    exam: {...this.props.exam},
+    hasValidatedQuestion: this.props.hasValidatedQuestion,
+    currentQuestion: {...this.props.currentQuestion},
     completedQuestionIds: this.props.completedQuestionIds
   }
 
@@ -22,19 +23,48 @@ class PracticeExamPage extends Component {
   }
 
   loadNextQuestion = () => {
-    this.setState({currentQuestion: this.getNextQuestion(this.state.exam.questions, this.state.completedQuestionIds)})
+    this.setState({
+      currentQuestion: this.getNextQuestion([...this.state.exam.questions], this.state.completedQuestionIds),
+      hasValidatedQuestion: false,
+    })
+  }
+
+  getAnswersWithStatuses = (originalQuestion, editedQuestion) => {
+    const validAnswersForCurrentQuestion = originalQuestion.answers
+    const providedAnswers = editedQuestion.answers
+
+    const providedAnswersWithUpdatedValidationStatus = providedAnswers.map(answer => {
+      const isValidAnswer = validAnswersForCurrentQuestion.find(x => x.value === answer.value) !== undefined
+
+      return {...answer, status: isValidAnswer ? CORRECT : INCORRECT}
+    })
+
+    const missedAnswers = validAnswersForCurrentQuestion.reduce((acc, answer) => {
+      if (!providedAnswers.find(x => x.value === answer.value)) {
+        return [...acc, {...answer, status: NOT_VALIDATED}]
+      }
+
+      return acc
+    }, [])
+
+    return [...providedAnswersWithUpdatedValidationStatus, ...missedAnswers]
   }
 
   validateQuestion = (e, question) => {
     e.preventDefault()
-    QuestionApi.validate(question).then(res => {
-      const hasProvidedCorrectAnswers = res.failedFields.length === 0
 
-      if (hasProvidedCorrectAnswers) {
-        this.setState({completedQuestionIds: [...this.state.completedQuestionIds, question.id]})
-      }
+    if (this.state.hasValidatedQuestion) {
+      return this.tryLoadNextQuestion()
+    }
 
-      this.tryLoadNextQuestion();
+    const {currentQuestion} = this.state
+    const answersWithUpdatedValidationStatus = this.getAnswersWithStatuses(currentQuestion, question)
+    const hasProvidedCorrectAnswers = answersWithUpdatedValidationStatus.filter(x => x.status !== CORRECT).length === 0
+
+    this.setState({
+      hasValidatedQuestion: true,
+      currentQuestion: {...currentQuestion, answers: answersWithUpdatedValidationStatus},
+      completedQuestionIds: [...this.state.completedQuestionIds, ...(hasProvidedCorrectAnswers ? [question.id] : [])]
     })
   }
 
@@ -48,16 +78,17 @@ class PracticeExamPage extends Component {
 
   getNextQuestion = (questions, completedQuestionIds) => {
     const possibleQuestions = questions.filter(x => !completedQuestionIds.includes(x.id))
-    let question = questions[Numbers.getRandomNumber(0, possibleQuestions.length - 1)]
-    return Object.assign(question, {answers: [{value: ''}]})
+
+    const question = possibleQuestions[Numbers.getRandomNumber(0, possibleQuestions.length - 1)]
+    return {...question}
   }
 
   render () {
-    const {exam, currentQuestion, completedQuestionIds} = this.state
-    const {questions} = exam;
+    const {exam, currentQuestion, completedQuestionIds, hasValidatedQuestion} = this.state
+    const {questions} = exam
 
-    console.log(exam);
     const hasQuestionsLeft = currentQuestion !== undefined && questions.length !== completedQuestionIds.length
+    const question = hasValidatedQuestion ? currentQuestion : {...currentQuestion, answers: [{value: ''}]}
 
     return (
       <section className="container mx-auto">
@@ -66,8 +97,8 @@ class PracticeExamPage extends Component {
         </section>
         <section className="mt-6 bg-white shadow-md rounded p-4">
           {hasQuestionsLeft
-            ? <QuestionForm question={currentQuestion} handleSubmit={this.validateQuestion} submitLabel={'Next'}
-                          questionIsEditable={false}/>
+            ? <QuestionForm question={question} handleSubmit={this.validateQuestion} submitLabel={hasValidatedQuestion ? 'Next Question' : 'Validate'}
+                            questionIsEditable={false} answersAreDisabled={hasValidatedQuestion}/>
             : <p>No questions left</p>
           }
         </section>
@@ -79,9 +110,8 @@ class PracticeExamPage extends Component {
 const buildEmptyQuestion = exam => ({
   id: undefined,
   value: '',
-  answers: [{value: ''}]
+  answers: [{value: '', status: NOT_VALIDATED}]
 })
-
 
 const mapStateToProps = (state, ownProps) => {
   const {id} = ownProps.match.params
@@ -89,6 +119,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     exam: exam || {questions: []},
+    hasValidatedQuestion: false,
     currentQuestion: buildEmptyQuestion(),
     completedQuestionIds: []
   }

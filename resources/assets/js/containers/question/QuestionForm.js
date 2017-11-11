@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { CORRECT, INCORRECT, NOT_VALIDATED } from './questionAnswerTypes'
 
 class QuestionForm extends Component {
   state = {
@@ -17,7 +18,7 @@ class QuestionForm extends Component {
     const {name, value} = event.target
     const listValues = [...this.state.question[name]]
 
-    listValues[listIndex] = Object.assign({}, listValues[listIndex], {value: value})
+    listValues[listIndex] = {...listValues[listIndex], value: value, status: NOT_VALIDATED}
 
     this.setQuestionState(event, listValues)
   }
@@ -26,19 +27,32 @@ class QuestionForm extends Component {
     const {name} = target
     const previousForm = this.state.question
 
-    this.setState({question: Object.assign(previousForm, {[name]: value})})
+    this.setState({question: {...previousForm, [name]: value}})
   }
 
   addAnswer = e => {
     const question = {...this.state.question}
-    question.answers = [...question.answers, {value: ''}]
+    question.answers = [...question.answers, {value: '', status: NOT_VALIDATED}]
 
     this.setState({question})
   }
 
   destroyAnswer = (e, index) => {
     const answers = this.state.question.answers.filter((x, i) => i !== index)
-    this.setState({question: Object.assign({}, this.state.question, {answers})})
+    this.setState({question: {...this.state.question, answers}})
+  }
+
+  getBorderForValidationState (type) {
+    switch (type) {
+      case CORRECT:
+        return 'border-2 border-green-lighter'
+      case INCORRECT:
+        return 'border-2 border-red-lighter'
+      case NOT_VALIDATED:
+        return 'border border-grey-lighter'
+      default:
+        return 'border border-grey-lighter'
+    }
   }
 
   render () {
@@ -66,6 +80,7 @@ class QuestionForm extends Component {
                 className="bg-indigo hover:bg-indigo-dark text-white rounded no-underline block py-3 px-4 ml-2 text-xs"
                 onClick={this.addAnswer}
                 type="button"
+                disabled={this.props.answersAreDisabled}
               >
                 Add Answer
               </button>
@@ -73,12 +88,13 @@ class QuestionForm extends Component {
             {answers.map((answer, index) => {
               return <section className="w-full flex mt-3" key={index}>
                 <input
-                  className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" type="text" placeholder="An possible answer" name="answers"
-                  value={answer.value} onChange={e => this.handleListChange(e, index)}/>
+                  className={`appearance-none block w-full bg-grey-lighter text-grey-darker ${this.getBorderForValidationState(answer.status)} rounded py-3 px-4`}
+                  type="text" placeholder="An possible answer" name="answers"
+                  value={answer.value} onChange={e => this.handleListChange(e, index)} disabled={this.props.answersAreDisabled}/>
 
                 <button
                   className="bg-red hover:bg-red-dark text-white rounded no-underline block py-3 px-4 ml-2 text-xs"
-                  type="button" onClick={e => this.destroyAnswer(e, index)}>
+                  type="button" onClick={e => this.destroyAnswer(e, index)} disabled={this.props.answersAreDisabled}>
                   <i className="material-icons text-md">delete</i>
                 </button>
               </section>
@@ -95,9 +111,11 @@ class QuestionForm extends Component {
     )
   }
 }
+
 QuestionForm.propTypes = {
   submitLabel: PropTypes.string.isRequired,
   questionIsEditable: PropTypes.bool.isRequired,
+  answersAreDisabled: PropTypes.bool.isRequired,
   question: PropTypes.shape({
     value: PropTypes.string.isRequired,
     answers: PropTypes.arrayOf(PropTypes.shape({
