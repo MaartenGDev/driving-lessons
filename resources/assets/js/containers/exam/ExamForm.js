@@ -28,7 +28,7 @@ class ExamForm extends Component {
         <div className="-mx-3 md:flex mb-6">
           <div className="md:w-full px-3">
             <label className="block text-grey-darker text font-bold mb-2" htmlFor="input-name">
-              Question
+              Name
             </label>
             <input
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
@@ -40,7 +40,7 @@ class ExamForm extends Component {
         <div className="-mx-3 md:flex mb-6">
           <div className="md:w-full px-3">
             <label className="block text-grey-darker text font-bold mb-2" htmlFor="input-description">
-              Question
+              Description
             </label>
             <input
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"

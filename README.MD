@@ -2,14 +2,17 @@
 React SPA to practice questions with multiple answers.
 
 ## Preview
-#### Question List
-![Question List](./docs/question_list.png)
-#### Create Question
-![Create Question](./docs/create_question.png)
-#### Edit Question
+#### Exam List
+![Question List](./docs/exam_list.png)
+#### Edit Exam
+![Create Question](./docs/edit_exam.png)
+#### Exam Questions
+![Create Question](./docs/exam_question_list.png)
+#### Edit Exam Questions
 ![Create Question](./docs/edit_question.png)
+
 #### Practice mode
-![Create Question](./docs/test_mode.png)
+![Create Question](./docs/practice_exam.png)
 
 ## Installation
 ```bash

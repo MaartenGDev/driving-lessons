@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { shorten } from '../../helpers/text'
 
 const QuestionList = ({exam, onDeleteQuestionClick}) => {
   const {questions} = exam;
@@ -15,7 +16,7 @@ const QuestionList = ({exam, onDeleteQuestionClick}) => {
       </tr>
       {questions.map(question =>
         <tr className="hover:bg-grey-light" key={question.id}>
-          <td className="text-grey-darker p-2">{question.value}</td>
+          <td className="text-grey-darker p-2">{shorten(question.value, 60) }</td>
           <td className="text-grey-darker p-2">{question.answers.length}</td>
           <td className="text-grey-darker p-2"><Link className="text-blue no-underline"
                                                      to={`/exams/${exam.id}/questions/${question.id}/edit`}>Edit</Link></td>
