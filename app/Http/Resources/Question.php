@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Answer as AnswerResource;
 
-class Question extends Resource
+class Question extends JsonResource
 {
     /**
      * Transform the resource into an array.

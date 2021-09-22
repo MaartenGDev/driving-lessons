@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\StoreQuestionRequest;
-use App\Question;
+use App\Models\Question;
 
 class QuestionAnswerController extends ApiController
 {

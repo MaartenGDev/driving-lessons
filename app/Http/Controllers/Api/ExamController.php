@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Exam;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\StoreExamRequest;
 use App\Http\Resources\Exam as ExamResource;
+use App\Models\Exam;
 
 class ExamController extends ApiController
 {
