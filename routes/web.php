@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +14,5 @@
 */
 
 Route::get('/{react?}', function () {
-    return view('app');
+    return view('home');
 })->where('react', '[\/\w\.-]*');
